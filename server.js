@@ -1,13 +1,16 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.get('/emitter', function (_, res) {
-    res.sendFile(__dirname + '/emitter.html');
+app.use(express.static(__dirname));
+
+app.get('/party', function (_, res) {
+    res.sendFile(__dirname + '/party.html');
 });
 
-app.get('/receiver', function (_, res) {
-    res.sendFile(__dirname + '/receiver.html');
+app.get('/party-emitter', function (_, res) {
+    res.sendFile(__dirname + '/party-emitter.html');
 });
 
 io.on('connection', function (socket) {
