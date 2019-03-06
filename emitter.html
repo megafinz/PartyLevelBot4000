@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Party Level Bot 4000 (Emitter)</title>
+    </head>
+
+    <body>
+        <h1>YELLO</h1>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+            setInterval(function () {
+                var amp = Math.random();
+                socket.emit('amplitude in', amp);
+            }, 100);
+        </script>
+    </body>
+</html>
