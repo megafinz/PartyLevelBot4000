@@ -11,12 +11,14 @@ const THRESHOLDS = [
     { amp: Number.MAX_VALUE, gifs: [ "6.gif" ] }
 ]
 
-var currentAmp = 0;
-var maxAmp = 0;
+var currentAmp = -1;
+var maxAmp = -1;
 var resetCurrentAmpTimeout;
 var refreshMaxAmpTimeout;
 
 const socket = io();
+
+setCurrentAmp(0);
 
 socket.on('amplitude out', function (amp) {
     setCurrentAmp(amp);
