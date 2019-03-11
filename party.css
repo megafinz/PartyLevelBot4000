@@ -1,3 +1,7 @@
+html, body, #reaction {
+    height: 100%;
+}
+
 .volume {
     width: 100%;
     background-color: grey;
@@ -13,10 +17,10 @@
 }
 
 .JOHN_CENA {
-    /* Start the shake animation and make the animation last for 0.5 seconds */
+    position: relative;
+    top: 25%;
+    left:35%;
     animation: shake 0.5s;
-
-    /* When the animation is finished, start again */
     animation-iteration-count: infinite;
   }
 
@@ -32,4 +36,18 @@
     80% { transform: translate(-5px, -5px) rotate(1deg); }
     90% { transform: translate(5px, 10px) rotate(0deg); }
     100% { transform: translate(5px, -10px) rotate(-1deg); }
+  }
+
+  .JOHN_CENA_BODY {
+    animation: colorchange 1s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes colorchange
+  {
+    0%   {background: lime;}
+    25%  {background: yellow;}
+    50%  {background: cyan;}
+    75%  {background: magenta;}
+    100% {background: red;}
   }

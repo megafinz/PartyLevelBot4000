@@ -58,6 +58,7 @@ function updateReaction(amp) {
     let { gif, isJohnCena } = getGif(amp);
     elem.src = gif;
     elem.className = JOHN_CENA_ENABLED && isJohnCena ? "JOHN_CENA" : "";
+    document.body.className = JOHN_CENA_ENABLED && isJohnCena ? "JOHN_CENA_BODY" : "";
 }
 
 function getGif(amp) {
