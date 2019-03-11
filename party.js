@@ -4,6 +4,7 @@ const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
 var currentAmp = 0;
 var maxAmp = 0;
 var resetCurrentAmpTimeout;
+var refreshMaxAmpTimeout;
 
 var socket = io();
 
@@ -27,16 +28,16 @@ function setMaxAmp(amp) {
     maxAmp = amp;
     setMeter("max-meter", Math.round(maxAmp * 100));
     updateReaction(maxAmp);
+    clearTimeout(refreshMaxAmpTimeout);
+    refreshMaxAmpTimeout = setTimeout(function() {
+        setMaxAmp(currentAmp);
+    }, MAX_AMP_REFRESH_INTERVAL_MS);
 }
 
 function setMeter(id, value) {
     var elem = document.getElementById(id);
     elem.style.width = value + '%';
     elem.innerHTML = value * 1 + '%';
-}
-
-function refreshMaxAmp() {
-    setMaxAmp(currentAmp);
 }
 
 function updateReaction(amp) {
@@ -56,5 +57,3 @@ function updateReaction(amp) {
         elem.src = "6.gif";
     }
 }
-
-setInterval(refreshMaxAmp, MAX_AMP_REFRESH_INTERVAL_MS);
