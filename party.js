@@ -1,5 +1,6 @@
 const MAX_AMP_REFRESH_INTERVAL_MS = 5000;
 const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
+const JOHN_CENA_ENABLED = true;
 
 const THRESHOLDS = [
     { amp: 0.1, gifs: [ "0.gif" ] },
@@ -54,13 +55,14 @@ function setMeter(id, value) {
 
 function updateReaction(amp) {
     let elem = document.getElementById("reaction-img");
-    elem.src = getGif(amp);
+    let { gif, isJohnCena } = getGif(amp);
+    elem.src = gif;
+    elem.className = JOHN_CENA_ENABLED && isJohnCena ? "JOHN_CENA" : "";
 }
 
 function getGif(amp) {
     let minT = THRESHOLDS[0];
     let maxT = THRESHOLDS[THRESHOLDS.length - 1];
-    var result;
     if (amp < minT.amp) {
         result = minT;
     } else if (amp >= maxT.amp) {
@@ -68,7 +70,7 @@ function getGif(amp) {
     } else {
         result = THRESHOLDS.find(t => t.amp > amp);
     }
-    return rand(result.gifs);
+    return { gif: rand(result.gifs), isJohnCena: result === maxT };
 }
 
 // Utils.
