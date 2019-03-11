@@ -1,12 +1,22 @@
 const MAX_AMP_REFRESH_INTERVAL_MS = 5000;
 const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
 
+const THRESHOLDS = [
+    { amp: 0.1, gifs: [ "0.gif" ] },
+    { amp: 0.2, gifs: [ "1.gif" ] },
+    { amp: 0.3, gifs: [ "2.gif" ] },
+    { amp: 0.4, gifs: [ "3.gif" ] },
+    { amp: 0.5, gifs: [ "4.gif" ] },
+    { amp: 0.6, gifs: [ "5.gif" ] },
+    { amp: Number.MAX_VALUE, gifs: [ "6.gif" ] }
+]
+
 var currentAmp = 0;
 var maxAmp = 0;
 var resetCurrentAmpTimeout;
 var refreshMaxAmpTimeout;
 
-var socket = io();
+const socket = io();
 
 socket.on('amplitude out', function (amp) {
     setCurrentAmp(amp);
@@ -35,25 +45,36 @@ function setMaxAmp(amp) {
 }
 
 function setMeter(id, value) {
-    var elem = document.getElementById(id);
+    let elem = document.getElementById(id);
     elem.style.width = value + '%';
     elem.innerHTML = value * 1 + '%';
 }
 
 function updateReaction(amp) {
-    var elem = document.getElementById("reaction-img");
+    let elem = document.getElementById("reaction-img");
+    elem.src = getGif(amp);
+}
 
-    if (amp < 0.1) {
-        elem.src = "0.gif";
-    } else if (amp < 0.2) {
-        elem.src = "1.gif";
-    } else if (amp < 0.3) {
-        elem.src = "3.gif";
-    } else if (amp < 0.4) {
-        elem.src = "4.gif";
-    } else if (amp < 0.5) {
-        elem.src = "5.gif";
+function getGif(amp) {
+    let minT = THRESHOLDS[0];
+    let maxT = THRESHOLDS[THRESHOLDS.length - 1];
+    var result;
+    if (amp < minT.amp) {
+        result = minT;
+    } else if (amp >= maxT.amp) {
+        result = maxT;
     } else {
-        elem.src = "6.gif";
+        result = THRESHOLDS.find(t => t.amp > amp);
     }
+    return rand(result.gifs);
+}
+
+// Utils.
+
+function clamp(num, min, max) {
+  return num <= min ? min : num >= max ? max : num;
+}
+
+function rand(items) {
+    return items[Math.floor(Math.random() * items.length)];
 }
