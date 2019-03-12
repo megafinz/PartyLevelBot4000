@@ -1,4 +1,4 @@
-html, body, #reaction {
+html, body, #reaction, #reaction-override {
     height: 100%;
 }
 
@@ -50,4 +50,8 @@ html, body, #reaction {
     50%  {background: cyan;}
     75%  {background: magenta;}
     100% {background: red;}
+  }
+
+  .hide {
+    display: none;
   }
