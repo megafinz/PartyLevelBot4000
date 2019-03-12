@@ -5,24 +5,25 @@ var io = require('socket.io')(http);
 
 app.use(express.static(__dirname));
 
-app.get('/party', function (_, res) {
+app.get('/party', (_, res) => {
     res.sendFile(__dirname + '/party.html');
 });
 
-app.get('/party-emitter', function (_, res) {
+app.get('/party-emitter', (_, res) => {
     res.sendFile(__dirname + '/party-emitter.html');
 });
 
-io.on('connection', function (socket) {
-    console.log('OH WOW A CONNECTION');
-    socket.on('disconnect', function () {
-        console.log('oh wow a disconnection');
-    })
-    socket.on('amplitude in', function (amp) {
-        socket.broadcast.emit('amplitude out', amp);
-    });
+app.get('/party-hq', (_, res) => {
+    res.sendFile(__dirname + '/party-hq.html');
 });
 
-http.listen(7090, function () {
-    console.log('Listening on 7090');
-})
+io.on('connection', socket => {
+    console.log('OH WOW A CONNECTION');
+    socket.on('disconnect', () => {
+        console.log('oh wow a disconnection');
+    })
+    socket.on('amplitude in', amp => socket.broadcast.emit('amplitude out', amp));
+    socket.on('hq toggle lvl', lvl => socket.broadcast.emit('hq toggle lvl', lvl));
+});
+
+http.listen(7090, () => console.log('Listening on 7090'));
