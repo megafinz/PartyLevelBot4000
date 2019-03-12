@@ -1,3 +1,4 @@
+const AMP_BUF_MAX_SIZE = 2;
 const MAX_AMP_REFRESH_INTERVAL_MS = 5000;
 const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
 const REACTION_IMG_OVERRIDE_TIMEOUT_MS = 5000;
@@ -13,6 +14,7 @@ const THRESHOLDS = [
     { amp: Number.MAX_VALUE, gifs: [ '6.gif' ] }
 ]
 
+var ampBuf = [];
 var currentAmp = -1;
 var maxAmp = -1;
 var resetCurrentAmpTimeout;
@@ -24,7 +26,7 @@ const socket = io();
 setCurrentAmp(0);
 
 socket.on('amplitude out', amp => {
-    setCurrentAmp(amp);
+    setCurrentAmp(getCurrentAmp(amp));
     clearTimeout(resetCurrentAmpTimeout);
     resetCurrentAmpTimeout = setTimeout(() => setCurrentAmp(0), CURRENT_AMP_IDLE_RESET_INTERVAL_MS);
 });
@@ -45,6 +47,14 @@ socket.on('hq toggle lvl', lvl => {
         overrideImgBody.classList.add('hide');
     }, REACTION_IMG_OVERRIDE_TIMEOUT_MS);
 });
+
+function getCurrentAmp(amp) {
+    ampBuf.push(Number(amp));
+    while (ampBuf.length > AMP_BUF_MAX_SIZE) {
+        ampBuf.shift();
+    }
+    return ampBuf.reduce((a, b) => a + b) / ampBuf.length;
+}
 
 function setCurrentAmp(amp) {
     currentAmp = amp;
