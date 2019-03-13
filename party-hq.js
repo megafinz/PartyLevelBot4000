@@ -1,9 +1,9 @@
-currentAmpChangedCallback = function(amp) {
+_currentAmpChangedCallback = amp => {
     setMeter('current-meter', Math.round(amp * 100));
     setMeter('current-meter-normalized', Math.round(getNormalizedAmp(amp) * 100));
 }
 
-maxAmpChangedCallback = function(amp) {
+_maxAmpChangedCallback = amp => {
     setMeter('max-meter', Math.round(amp * 100));
     setMeter('max-meter-normalized', Math.round(getNormalizedAmp(amp) * 100));
 }

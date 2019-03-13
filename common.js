@@ -4,44 +4,44 @@ const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
 const MIN_AMP = 0.4;
 const MAX_AMP = 0.65;
 
-var ampBuf = [];
-var currentAmp = -1;
-var maxAmp = -1;
+var _ampBuf = [];
+var _currentAmp = -1;
+var _maxAmp = -1;
 
-var resetCurrentAmpTimeout;
-var refreshMaxAmpTimeout;
+var _resetCurrentAmpTimeout;
+var _refreshMaxAmpTimeout;
 
-var currentAmpChangedCallback;
-var maxAmpChangedCallback;
+var _currentAmpChangedCallback;
+var _maxAmpChangedCallback;
 
 setCurrentAmp(0.0);
 
 function smoothenAmp(amp) {
-    ampBuf.push(Number(amp));
-    while (ampBuf.length > AMP_BUF_MAX_SIZE) {
-        ampBuf.shift();
+    _ampBuf.push(Number(amp));
+    while (_ampBuf.length > AMP_BUF_MAX_SIZE) {
+        _ampBuf.shift();
     }
-    return ampBuf.reduce((a, b) => a + b) / ampBuf.length;
+    return _ampBuf.reduce((a, b) => a + b) / _ampBuf.length;
 }
 
 function setCurrentAmp(amp) {
-    currentAmp = amp;
-    if (maxAmp < amp) {
+    _currentAmp = amp;
+    if (_maxAmp < amp) {
         setMaxAmp(amp);
     }
-    clearTimeout(resetCurrentAmpTimeout);
-    resetCurrentAmpTimeout = setTimeout(() => setCurrentAmp(0), CURRENT_AMP_IDLE_RESET_INTERVAL_MS);
-    if (currentAmpChangedCallback) {
-        currentAmpChangedCallback(currentAmp);
+    clearTimeout(_resetCurrentAmpTimeout);
+    _resetCurrentAmpTimeout = setTimeout(() => setCurrentAmp(0), CURRENT_AMP_IDLE_RESET_INTERVAL_MS);
+    if (_currentAmpChangedCallback) {
+        _currentAmpChangedCallback(amp);
     }
 }
 
 function setMaxAmp(amp) {
-    maxAmp = amp;
-    clearTimeout(refreshMaxAmpTimeout);
-    refreshMaxAmpTimeout = setTimeout(() => setMaxAmp(currentAmp), MAX_AMP_REFRESH_INTERVAL_MS);
-    if (maxAmpChangedCallback) {
-        maxAmpChangedCallback(maxAmp);
+    _maxAmp = amp;
+    clearTimeout(_refreshMaxAmpTimeout);
+    _refreshMaxAmpTimeout = setTimeout(() => setMaxAmp(_currentAmp), MAX_AMP_REFRESH_INTERVAL_MS);
+    if (_maxAmpChangedCallback) {
+        _maxAmpChangedCallback(amp);
     }
 }
 
