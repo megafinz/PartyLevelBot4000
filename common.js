@@ -30,7 +30,7 @@ function setCurrentAmp(amp) {
         setMaxAmp(amp);
     }
     clearTimeout(_resetCurrentAmpTimeout);
-    _resetCurrentAmpTimeout = setTimeout(() => setCurrentAmp(0), CURRENT_AMP_IDLE_RESET_INTERVAL_MS);
+    _resetCurrentAmpTimeout = setTimeout(() => setCurrentAmp(0.0), CURRENT_AMP_IDLE_RESET_INTERVAL_MS);
     if (_currentAmpChangedCallback) {
         _currentAmpChangedCallback(amp);
     }
@@ -39,10 +39,14 @@ function setCurrentAmp(amp) {
 function setMaxAmp(amp) {
     _maxAmp = amp;
     clearTimeout(_refreshMaxAmpTimeout);
-    _refreshMaxAmpTimeout = setTimeout(() => setMaxAmp(_currentAmp), MAX_AMP_REFRESH_INTERVAL_MS);
+    _refreshMaxAmpTimeout = setTimeout(() => refreshMapAmp(), MAX_AMP_REFRESH_INTERVAL_MS);
     if (_maxAmpChangedCallback) {
         _maxAmpChangedCallback(amp);
     }
+}
+
+function refreshMapAmp() {
+    setMaxAmp(_currentAmp);
 }
 
 function setMeter(id, value) {

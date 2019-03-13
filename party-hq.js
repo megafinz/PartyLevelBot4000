@@ -26,10 +26,10 @@ function setMinThreshold(value) {
     const text = document.getElementById('min-threshold-text');
     range.value = value;
     text.innerHTML = Number(value).toFixed(2);
-
     if (value > MAX_AMP) {
         setMaxThreshold(value);
     }
+    refreshMapAmp();
 }
 
 function setMaxThreshold(value) {
@@ -38,10 +38,10 @@ function setMaxThreshold(value) {
     const text = document.getElementById('max-threshold-text');
     range.value = value;
     text.innerHTML = Number(value).toFixed(2);
-
     if (value < MIN_AMP) {
         setMinThreshold(value);
     }
+    refreshMapAmp();
 }
 
 function setSmoothingWindow(value) {
