@@ -9,117 +9,117 @@
         <h1 class="ml-3 mt-3 text-light">PARTY LEVEL BOT 4000 HQ</h1>
 
         <div class="container my-5 bg-light rounded p-3">
-            <h2 class="mb-3">Noize Control Room</h2>
+            <ul class="nav nav-pills bg-light rounded p-2 mb-3">
+                <li>
+                    <a class="nav-link active h3" data-toggle="pill" href="#noize">Noize Control Room</a>
+                </li>
+                <li>
+                    <a class="nav-link h3" data-toggle="pill" href="#overrides">Manual Overrides Room</a>
+                </li>
+            </ul>
 
-            <div class="container mb-3">
-                <h3>Raw Input</h3>
+            <div class="tab-content">
+                <div id="noize" class="tab-pane fade-in active">
+                    <div class="container mb-3">
+                        <h3>Raw Input</h3>
 
-                <div class="container bg-secondary rounded p-3">
-                    <label class="text-light">Current:</label>
+                        <div class="container bg-secondary rounded p-3">
+                            <label class="text-light">Current:</label>
 
-                    <div class="progress mb-3 mx-3">
-                        <div class="progress-bar bg-success" id="current-meter">0%</div>
+                            <div class="progress mb-3 mx-3">
+                                <div class="progress-bar bg-success" id="current-meter">0%</div>
+                            </div>
+
+                            <label class="text-light">Max:</label>
+
+                            <div class="progress mb-3 mx-3">
+                                <div class="progress-bar bg-success" id="max-meter">0%</div>
+                            </div>
+                        </div>
                     </div>
 
-                    <label class="text-light">Max:</label>
+                    <div class="container mb-3">
+                        <h3>Normalized Input</h3>
 
-                    <div class="progress mb-3 mx-3">
-                        <div class="progress-bar bg-success" id="max-meter">0%</div>
+                        <div class="container bg-secondary rounded p-3">
+                            <label class="text-light">Current:</label>
+
+                            <div class="progress mb-3 mx-3">
+                                <div class="progress-bar bg-success" id="current-meter-normalized">0%</div>
+                            </div>
+
+                            <label class="text-light">Max:</label>
+
+                            <div class="progress mb-3 mx-3">
+                                <div class="progress-bar bg-success" id="max-meter-normalized">0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container mb-3">
+                        <h3>Thresholds</h3>
+
+                        <div class="container bg-secondary rounded p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <label class="text-light mr-3">Min:</label>
+                                </div>
+                                <div class="col-10">
+                                    <input id="min-threshold" type="range" class="w-100 mr-3" min="0" max="1" step="0.05" value="0.4" oninput="onMinThresholdChanged(this.value, true)" />
+                                </div>
+
+                                <div class="col">
+                                    <label class="text-light" id="min-threshold-text">0.40</label>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <label class="text-light mr-3">Max:</label>
+                                </div>
+                                <div class="col-10">
+                                    <input id="max-threshold" type="range" class="w-100 mr-3" min="0" max="1" step="0.05" value="0.65" oninput="onMaxThresholdChanged(this.value, true)" />
+                                </div>
+
+                                <div class="col">
+                                    <label id="max-threshold-text" class="text-light">0.65</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container mb-3">
+                        <h3>Input Smoothing</h3>
+
+                        <div class="container bg-secondary rounded p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <label class="text-light mr-3">Moving Average Window Size:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input id="smoothing-window" type="range" class="w-100 mr-3" min="1" max="10" step="1" value="3" oninput="onSmoothingWindowChanged(this.value, true)" />
+                                </div>
+
+                                <div class="col-1">
+                                    <label class="text-light" id="smoothing-window-text">3</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="container mb-3">
-                <h3>Normalized Input</h3>
-
-                <div class="container bg-secondary rounded p-3">
-                    <label class="text-light">Current:</label>
-
-                    <div class="progress mb-3 mx-3">
-                        <div class="progress-bar bg-success" id="current-meter-normalized">0%</div>
-                    </div>
-
-                    <label class="text-light">Max:</label>
-
-                    <div class="progress mb-3 mx-3">
-                        <div class="progress-bar bg-success" id="max-meter-normalized">0%</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container mb-3">
-                <h3>Thresholds</h3>
-
-                <div class="container bg-secondary rounded p-3">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <label class="text-light mr-3">Min:</label>
-                        </div>
-                        <div class="col-10">
-                            <input id="min-threshold" type="range" class="w-100 mr-3" min="0" max="1" step="0.05" value="0.4" oninput="onMinThresholdChanged(this.value, true)" />
-                        </div>
-
-                        <div class="col">
-                            <label class="text-light" id="min-threshold-text">0.40</label>
-                        </div>
-                    </div>
-
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <label class="text-light mr-3">Max:</label>
-                        </div>
-                        <div class="col-10">
-                            <input id="max-threshold" type="range" class="w-100 mr-3" min="0" max="1" step="0.05" value="0.65" oninput="onMaxThresholdChanged(this.value, true)" />
-                        </div>
-
-                        <div class="col">
-                            <label id="max-threshold-text" class="text-light">0.65</label>
+                <div id="overrides" class="tab-pane fade">
+                    <div class="container">
+                        <button class="btn btn-primary" onclick="toggleLvl(0)">Toggle LEVEL 0</button>
+                        <button class="btn btn-primary" onclick="toggleLvl(1)">Toggle LEVEL 1</button>
+                        <button class="btn btn-primary" onclick="toggleLvl(2)">Toggle LEVEL 2</button>
+                        <button class="btn btn-primary" onclick="toggleLvl(3)">Toggle LEVEL 3</button>
+                        <button class="btn btn-primary" onclick="toggleLvl(4)">Toggle LEVEL 4</button>
+                        <button class="btn btn-primary" onclick="toggleLvl(5)">Toggle LEVEL 5</button>
+                        <button class="btn btn-primary" onclick="toggleLvl(6)">Toggle LEVEL 6</button>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="container mb-3">
-                <h3>Input Smoothing</h3>
-
-                <div class="container bg-secondary rounded p-3">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <label class="text-light mr-3">Moving Average Window Size:</label>
-                        </div>
-                        <div class="col-8">
-                            <input id="smoothing-window" type="range" class="w-100 mr-3" min="1" max="10" step="1" value="3" oninput="onSmoothingWindowChanged(this.value, true)" />
-                        </div>
-
-                        <div class="col-1">
-                            <label class="text-light" id="smoothing-window-text">3</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <button class="btn btn-outline-primary" onclick="toggleLvl(0)">Toggle LEVEL 0</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-outline-primary" onclick="toggleLvl(1)">Toggle LEVEL 1</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-outline-primary" onclick="toggleLvl(2)">Toggle LEVEL 2</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-outline-primary" onclick="toggleLvl(3)">Toggle LEVEL 3</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-outline-primary" onclick="toggleLvl(4)">Toggle LEVEL 4</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-outline-primary" onclick="toggleLvl(5)">Toggle LEVEL 5</button>
-            </div>
-            <div class="row">
-                <button class="btn btn-outline-primary" onclick="toggleLvl(6)">Toggle LEVEL 6</button>
             </div>
         </div>
 
