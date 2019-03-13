@@ -26,15 +26,15 @@ socket.on('hq toggle lvl', lvl => {
     const overrideImg = document.getElementById('reaction-img-override');
     const overrideImgBody = document.getElementById('reaction-override');
     let { gif, isJohnCena } = getGifForLvl(lvl);
-    imgBody.classList.add('hide');
-    overrideImgBody.classList.remove('hide');
+    imgBody.classList.add('invisible');
+    overrideImgBody.classList.remove('invisible');
     overrideImg.src = gif;
     toggleElementJohnCena(overrideImg, isJohnCena);
     toggleBodyJohnCena(overrideImgBody, isJohnCena);
     clearTimeout(_reactionImgOverrideTimeout);
     _reactionImgOverrideTimeout = setTimeout(() => {
-        imgBody.classList.remove('hide');
-        overrideImgBody.classList.add('hide');
+        imgBody.classList.remove('invisible');
+        overrideImgBody.classList.add('invisible');
     }, REACTION_IMG_OVERRIDE_TIMEOUT_MS);
 });
 
