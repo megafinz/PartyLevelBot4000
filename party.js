@@ -19,6 +19,12 @@ const socket = io();
 
 setCurrentAmp(0.0);
 
+socket.on('hq init cfg', cfg => _cfg = cfg);
+
+socket.on('hq cfg updated min amp threshold', value => _cfg.MinAmpThreshold = value);
+socket.on('hq cfg updated max amp threshold', value => _cfg.MaxAmpThreshold = value);
+socket.on('hq cfg updated moving average window size', value => _cfg.MovingAverageWindowSize = value);
+
 socket.on('amplitude out', amp => setCurrentAmp(smoothenAmp(amp)));
 
 socket.on('hq toggle lvl', lvl => {
