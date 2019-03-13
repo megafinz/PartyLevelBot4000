@@ -29,7 +29,10 @@ io.on('connection', socket => {
         console.log('oh wow a disconnection');
     })
     socket.on('amplitude in', amp => socket.broadcast.emit('amplitude out', amp));
-    socket.on('hq toggle lvl', lvl => socket.broadcast.emit('hq toggle lvl', lvl));
+    socket.on('hq toggle lvl', lvl => {
+        socket.broadcast.emit('hq toggle lvl', lvl);
+        console.log('PARTY LEVEL OVERRIDE: ' + lvl);
+    });
     socket.on('hq cfg update min amp threshold', value => {
         _cfg.MinAmpThreshold = value;
         socket.broadcast.emit('hq cfg updated min amp threshold', value);

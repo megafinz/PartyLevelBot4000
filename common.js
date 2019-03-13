@@ -1,7 +1,12 @@
 const MAX_AMP_REFRESH_INTERVAL_MS = 5000;
 const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
 
-var _cfg;
+var _cfg = {
+    MinAmpThreshold: 0.4,
+    MaxAmpThreshold: 0.65,
+    MovingAverageWindowSize: 3
+}
+
 var _ampBuf = [];
 var _currentAmp = -1;
 var _maxAmp = -1;
