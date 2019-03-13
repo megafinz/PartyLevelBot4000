@@ -1,8 +1,8 @@
-const AMP_BUF_MAX_SIZE = 2;
 const MAX_AMP_REFRESH_INTERVAL_MS = 5000;
 const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
-const MIN_AMP = 0.4;
-const MAX_AMP = 0.65;
+var AMP_BUF_MAX_SIZE = 3;
+var MIN_AMP = 0.4;
+var MAX_AMP = 0.65;
 
 var _ampBuf = [];
 var _currentAmp = -1;

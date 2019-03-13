@@ -1,26 +1,27 @@
 <html>
     <head>
-        <title>Party Level Bot 4000 (HQ)</title>
+        <title>Party Level Bot 4000 HQ</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="party-hq.css" />
     </head>
 
-    <body>
-        <h1>PARTY LEVEL BOT 4000 HQ</h1>
+    <body class="bg-dark">
+        <h1 class="ml-3 mt-3 text-light">PARTY LEVEL BOT 4000 HQ</h1>
 
-        <div class="container my-5">
-            <h2>Noise Control Room</h2>
+        <div class="container my-5 bg-light rounded p-3">
+            <h2 class="mb-3">Noize Control Room</h2>
 
             <div class="container mb-3">
-                <h3>Raw</h3>
+                <h3>Raw Input</h3>
 
-                <div class="container bg-light rounded p-3">
-                    <label>Current:</label>
+                <div class="container bg-secondary rounded p-3">
+                    <label class="text-light">Current:</label>
 
                     <div class="progress mb-3 mx-3">
                         <div class="progress-bar bg-success" id="current-meter">0%</div>
                     </div>
 
-                    <label>Max:</label>
+                    <label class="text-light">Max:</label>
 
                     <div class="progress mb-3 mx-3">
                         <div class="progress-bar bg-success" id="max-meter">0%</div>
@@ -28,20 +29,71 @@
                 </div>
             </div>
 
-            <div class="container">
-                <h3>Normalized</h3>
+            <div class="container mb-3">
+                <h3>Normalized Input</h3>
 
-                <div class="container bg-light rounded p-3">
-                    <label>Current:</label>
+                <div class="container bg-secondary rounded p-3">
+                    <label class="text-light">Current:</label>
 
                     <div class="progress mb-3 mx-3">
                         <div class="progress-bar bg-success" id="current-meter-normalized">0%</div>
                     </div>
 
-                    <label>Max:</label>
+                    <label class="text-light">Max:</label>
 
                     <div class="progress mb-3 mx-3">
                         <div class="progress-bar bg-success" id="max-meter-normalized">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mb-3">
+                <h3>Thresholds</h3>
+
+                <div class="container bg-secondary rounded p-3">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <label class="text-light mr-3">Min:</label>
+                        </div>
+                        <div class="col-10">
+                            <input id="min-threshold" type="range" class="w-100 mr-3" min="0" max="1" step="0.05" value="0.4" oninput="onMinThresholdChanged(this.value)" />
+                        </div>
+
+                        <div class="col">
+                            <label class="text-light" id="min-threshold-text">0.40</label>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <label class="text-light mr-3">Max:</label>
+                        </div>
+                        <div class="col-10">
+                            <input id="max-threshold" type="range" class="w-100 mr-3" min="0" max="1" step="0.05" value="0.65" oninput="onMaxThresholdChanged(this.value)" />
+                        </div>
+
+                        <div class="col">
+                            <label id="max-threshold-text" class="text-light">0.65</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mb-3">
+                <h3>Input Smoothing</h3>
+
+                <div class="container bg-secondary rounded p-3">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <label class="text-light mr-3">Moving Average Window Size:</label>
+                        </div>
+                        <div class="col-8">
+                            <input id="smoothing-window" type="range" class="w-100 mr-3" min="1" max="10" step="1" value="3" oninput="onSmoothingWindowChanged(this.value)" />
+                        </div>
+
+                        <div class="col-1">
+                            <label class="text-light" id="smoothing-window-text">3</label>
+                        </div>
                     </div>
                 </div>
             </div>
