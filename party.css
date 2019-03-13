@@ -2,20 +2,6 @@ html, body, #reaction, #reaction-override {
     height: 100%;
 }
 
-.volume {
-    width: 100%;
-    background-color: grey;
-}
-
-.meter {
-    width: 0%;
-    height: 30px;
-    background-color: #4CAF50;
-    text-align: center; /* To center it horizontally (if you want) */
-    line-height: 30px; /* To center it vertically */
-    color: white;
-}
-
 .JOHN_CENA {
     position: relative;
     top: 25%;
@@ -25,17 +11,17 @@ html, body, #reaction, #reaction-override {
   }
 
   @keyframes shake {
-    0% { transform: translate(5px, 5px) rotate(0deg); }
-    10% { transform: translate(-5px, -10px) rotate(-1deg); }
-    20% { transform: translate(-15px, 0px) rotate(1deg); }
-    30% { transform: translate(15px, 10px) rotate(0deg); }
-    40% { transform: translate(5px, -5px) rotate(1deg); }
-    50% { transform: translate(-5px, 10px) rotate(-1deg); }
-    60% { transform: translate(-15px, 5px) rotate(0deg); }
-    70% { transform: translate(15px, 5px) rotate(-1deg); }
-    80% { transform: translate(-5px, -5px) rotate(1deg); }
-    90% { transform: translate(5px, 10px) rotate(0deg); }
-    100% { transform: translate(5px, -10px) rotate(-1deg); }
+    0% { transform: translate(3px, 3px) rotate(0deg); }
+    10% { transform: translate(-3px, -6px) rotate(-1deg); }
+    20% { transform: translate(-9px, 0px) rotate(1deg); }
+    30% { transform: translate(9px, 10px) rotate(0deg); }
+    40% { transform: translate(3px, -3px) rotate(1deg); }
+    50% { transform: translate(-3px, 6px) rotate(-1deg); }
+    60% { transform: translate(-9px, 3px) rotate(0deg); }
+    70% { transform: translate(9px, 3px) rotate(-1deg); }
+    80% { transform: translate(-3px, -3px) rotate(1deg); }
+    90% { transform: translate(3px, 6px) rotate(0deg); }
+    100% { transform: translate(3px, -6px) rotate(-1deg); }
   }
 
   .JOHN_CENA_BODY {
