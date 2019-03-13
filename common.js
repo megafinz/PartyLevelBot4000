@@ -52,13 +52,7 @@ function setMeter(id, value) {
 }
 
 function getNormalizedAmp(amp) {
-    if (amp < MIN_AMP) {
-        return 0.0;
-    }
-    if (amp >= MAX_AMP) {
-        return 1.0;
-    }
-    return (amp - MIN_AMP) / MAX_AMP;
+    return clamp((amp - MIN_AMP) / (MAX_AMP - MIN_AMP), 0.0, 1.0);
 }
 
 // Utils.
