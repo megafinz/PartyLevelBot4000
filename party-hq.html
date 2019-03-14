@@ -2,6 +2,7 @@
     <head>
         <title>Party Level Bot 4000 HQ</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="party.css" />
         <link rel="stylesheet" type="text/css" href="party-hq.css" />
     </head>
 
@@ -15,6 +16,9 @@
                 </li>
                 <li>
                     <a class="nav-link h3" data-toggle="pill" href="#overrides">Manual Overrides Room</a>
+                </li>
+                <li>
+                    <a class="nav-link h3" data-toggle="pill" href="#misc">Misc Room</a>
                 </li>
             </ul>
 
@@ -117,7 +121,18 @@
                         <button class="btn btn-primary" onclick="toggleLvl(4)">Toggle LEVEL 4</button>
                         <button class="btn btn-primary" onclick="toggleLvl(5)">Toggle LEVEL 5</button>
                         <button class="btn btn-primary" onclick="toggleLvl(6)">Toggle LEVEL 6</button>
-                        </div>
+                    </div>
+                </div>
+
+                <div id="misc" class="tab-pane fade">
+                    <div class="container m-3">
+                        <input id='show-volume-meter' type="checkbox" class="form-check-input" oninput="setShowVolumeMeter(this.checked, true)" />
+                        <label class="form-check-label">Show Volume Meter</label>
+                    </div>
+
+                    <div class="container m-3" id="enable-john-cena-body">
+                        <input id="enable-john-cena" type="checkbox" class="form-check-input" oninput="setEnableJohnCena(this.checked, true)" />
+                        <label id="enable-john-cena-text" class="form-check-label">JOHN CENA</label>
                     </div>
                 </div>
             </div>

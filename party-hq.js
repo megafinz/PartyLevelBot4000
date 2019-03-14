@@ -18,6 +18,8 @@ socket.on('hq init cfg', cfg =>  {
 socket.on('hq cfg updated min amp threshold', setMinThreshold);
 socket.on('hq cfg updated max amp threshold', setMaxThreshold);
 socket.on('hq cfg updated moving average window size', setSmoothingWindow);
+socket.on('hq cfg updated show volume meter', setShowVolumeMeter);
+socket.on('hq cfg updated enable john cena', setEnableJohnCena);
 
 socket.on('amplitude out', amp => setCurrentAmp(smoothenAmp(amp)));
 
@@ -25,6 +27,8 @@ function updateCfg() {
     setMinThreshold(_cfg.MinAmpThreshold);
     setMaxThreshold(_cfg.MaxAmpThreshold);
     setSmoothingWindow(_cfg.MovingAverageWindowSize);
+    setShowVolumeMeter(_cfg.ShowVolumeMeter);
+    setEnableJohnCena(_cfg.EnableJohnCena);
 }
 
 function toggleLvl(lvl) {
@@ -72,6 +76,35 @@ function setSmoothingWindow(value, notify = false) {
     }
 }
 
+function setShowVolumeMeter(value, notify = false) {
+    _cfg.ShowVolumeMeter = value;
+    const check = document.getElementById('show-volume-meter');
+    check.checked = value;
+    if (notify) {
+        socket.emit('hq cfg update show volume meter', _cfg.ShowVolumeMeter);
+    }
+}
+
+function setEnableJohnCena(value, notify = false) {
+    _cfg.EnableJohnCena = value;
+    const check = document.getElementById('enable-john-cena');
+    const checkBody = document.getElementById('enable-john-cena-body');
+    const text = document.getElementById('enable-john-cena-text');
+    check.checked = value;
+    if (value) {
+        text.classList.add('JOHN_CENA');
+        checkBody.classList.add('JOHN_CENA_BODY');
+    } else {
+        text.classList.remove('JOHN_CENA');
+        checkBody.classList.remove('JOHN_CENA_BODY');
+    }
+    if (notify) {
+        socket.emit('hq cfg update enable john cena', _cfg.EnableJohnCena);
+    }
+}
+
 const onMinThresholdChanged = setMinThreshold;
 const onMaxThresholdChanged = setMaxThreshold;
 const onSmoothingWindowChanged = setSmoothingWindow;
+const onShowVolumeMeterChanged = setShowVolumeMeter;
+const onJohnCenaChanged = setEnableJohnCena;

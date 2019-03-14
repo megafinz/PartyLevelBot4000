@@ -4,7 +4,9 @@ const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
 var _cfg = {
     MinAmpThreshold: 0.4,
     MaxAmpThreshold: 0.65,
-    MovingAverageWindowSize: 3
+    MovingAverageWindowSize: 3,
+    ShowVolumeMeter: true,
+    EnableJohnCena: false
 }
 
 var _ampBuf = [];

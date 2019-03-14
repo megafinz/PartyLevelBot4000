@@ -6,7 +6,9 @@ var io = require('socket.io')(http);
 var _cfg = {
     MinAmpThreshold: 0.4,
     MaxAmpThreshold: 0.65,
-    MovingAverageWindowSize: 3
+    MovingAverageWindowSize: 3,
+    ShowVolumeMeter: true,
+    EnableJohnCena: false
 }
 
 app.use(express.static(__dirname));
@@ -47,6 +49,16 @@ io.on('connection', socket => {
         _cfg.MovingAverageWindowSize = value;
         socket.broadcast.emit('hq cfg updated moving average window size', value);
         console.log('Updated MOVING AVERAGE WINDOW SIZE to ' + value);
+    });
+    socket.on('hq cfg update show volume meter', value => {
+        _cfg.ShowVolumeMeter = value;
+        socket.broadcast.emit('hq cfg updated show volume meter', value);
+        console.log('Updated SHOW VOLUME METER to ' + value);
+    });
+    socket.on('hq cfg update enable john cena', value => {
+        _cfg.EnableJohnCena = value;
+        socket.broadcast.emit('hq cfg updated enable john cena', value);
+        console.log('Updated ENABLE JOHN CENA to ' + value);
     });
     socket.emit('hq init cfg', _cfg);
 });
