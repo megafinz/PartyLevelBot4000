@@ -2,14 +2,25 @@ const REACTION_IMG_OVERRIDE_TIMEOUT_MS = 5000;
 const JOHN_CENA_ENABLED = true;
 
 const THRESHOLDS = [
-    { amp: 0.15, gifs: [ '0.gif' ] },
-    { amp: 0.30, gifs: [ '1.gif' ] },
-    { amp: 0.45, gifs: [ '2.gif' ] },
-    { amp: 0.60, gifs: [ '3.gif' ] },
-    { amp: 0.75, gifs: [ '4.gif' ] },
-    { amp: 0.90, gifs: [ '5.gif' ] },
-    { amp: Number.MAX_VALUE, gifs: [ '6.gif' ] }
+    { amp: 0.20, gifs: [ '1-1.gif', '1-2.gif' ] },
+    { amp: 0.40, gifs: [ '2-1.gif', '2-2.gif' ] },
+    { amp: 0.60, gifs: [ '3-1.gif', '3-2.gif' ] },
+    { amp: 0.80, gifs: [ '4-1.gif', '4-2.gif' ] },
+    { amp: Number.MAX_VALUE, gifs: [ '5-1.gif', '5-2.gif' ] }
 ]
+
+// const THRESHOLDS = [
+//     { amp: 0.10, gifs: [ '1-1.gif' ] },
+//     { amp: 0.20, gifs: [ '1-2.gif' ] },
+//     { amp: 0.30, gifs: [ '2-1.gif' ] },
+//     { amp: 0.40, gifs: [ '2-2.gif' ] },
+//     { amp: 0.50, gifs: [ '3-1.gif' ] },
+//     { amp: 0.60, gifs: [ '3-2.gif' ] },
+//     { amp: 0.70, gifs: [ '4-1.gif' ] },
+//     { amp: 0.80, gifs: [ '4-2.gif' ] },
+//     { amp: 0.90, gifs: [ '5-1.gif' ] },
+//     { amp: Number.MAX_VALUE, gifs: [ '5-2.gif' ] }
+// ]
 
 var _reactionImgOverrideTimeout;
 
