@@ -118,25 +118,37 @@
                         <button class="btn btn-primary" onclick="toggleLvl(1)">Toggle LEVEL 2</button>
                         <button class="btn btn-primary" onclick="toggleLvl(2)">Toggle LEVEL 3</button>
                         <button class="btn btn-primary" onclick="toggleLvl(3)">Toggle LEVEL 4</button>
-                        <button class="btn btn-primary" onclick="toggleLvl(4)">Toggle LEVEL 5</button>
+                        <button class="btn btn-primary" onclick="toggleLvl(4)">Toggle MAX LEVEL</button>
                     </div>
                 </div>
 
                 <div id="misc" class="tab-pane fade">
-                    <div class="container m-3">
-                        <input id='show-volume-meter' type="checkbox" class="form-check-input" oninput="onShowVolumeMeterChanged(this.checked, true)" />
-                        <label class="form-check-label">Show Volume Meter</label>
-                    </div>
+                    <div class="container">
+                        <div class="container rounded bg-secondary p-3 mb-3">
+                            <div class="container mb-3">
+                                <input id='show-volume-meter' type="checkbox" class="form-check-input" oninput="onShowVolumeMeterChanged(this.checked, true)" />
+                                <label class="form-check-label text-light">Show Volume Meter</label>
+                            </div>
 
-                    <div class="container m-3" id="enable-john-cena-body">
-                        <input id="enable-john-cena" type="checkbox" class="form-check-input" oninput="onEnableJohnCenaChanged(this.checked, true)" />
-                        <label id="enable-john-cena-text" class="form-check-label">JOHN CENA</label>
-                    </div>
+                            <div class="container" id="enable-john-cena-body">
+                                <input id="enable-john-cena" type="checkbox" class="form-check-input" oninput="onEnableJohnCenaChanged(this.checked, true)" />
+                                <label id="enable-john-cena-text" class="form-check-label text-light">MAX LEVEL IS JOHN CENA</label>
+                            </div>
+                        </div>
 
-                    <div class="container m-3">
-                        <label>GIF Timeout:</label>
-                        <input id="gif-timeout" type="range" min="1" max="10" step="0.1" oninput="onGifTimeoutChanged(this.value, true)" />
-                        <label id="gif-timeout-text">0 s</label>
+                        <div class="container mb-3 p-3 rounded bg-secondary">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <label class="text-light">GIF Timeout:</label>
+                                </div>
+                                <div class="col-9">
+                                    <input id="gif-timeout" class="w-100" type="range" min="1" max="10" step="0.1" oninput="onGifTimeoutChanged(this.value, true)" />
+                                </div>
+                                <div class="col-1">
+                                    <label id="gif-timeout-text" class="text-light">0 s</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
