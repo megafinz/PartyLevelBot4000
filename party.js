@@ -52,27 +52,34 @@ socket.on('hq cfg updated gif timeout', value => _cfg.GifTimeoutMs = value);
 socket.on('amplitude out', amp => setCurrentAmp(smoothenAmp(amp)));
 
 socket.on('hq toggle lvl', lvl => {
-    const imgBody = document.getElementById('reaction');
-    const overrideImg = document.getElementById('reaction-img-override');
-    const overrideImgBody = document.getElementById('reaction-override');
+    const imgBody = _('reaction');
+    const overrideImg = _('reaction-img-override');
+    const overrideImgBody = _('reaction-override');
     let { gif, isJohnCena } = getGifForLvl(lvl);
-    imgBody.classList.add('invisible');
-    overrideImgBody.classList.remove('invisible');
+    hide(imgBody);
+    show(overrideImgBody);
     overrideImg.src = gif;
     toggleElementJohnCena(overrideImg, isJohnCena);
     toggleBodyJohnCena(overrideImgBody, isJohnCena);
     clearTimeout(_reactionImgOverrideTimeout);
     _reactionImgOverrideTimeout = setTimeout(() => {
-        imgBody.classList.remove('invisible');
-        overrideImgBody.classList.add('invisible');
+        show(imgBody)
+        hide(overrideImgBody);
         toggleElementJohnCena(overrideImg, false);
         toggleBodyJohnCena(overrideImgBody, false);
     }, REACTION_IMG_OVERRIDE_TIMEOUT_MS);
 });
 
 function updateReaction(amp) {
-    let elem = document.getElementById('reaction-img');
-    let body = document.getElementById('reaction');
+    let elem = _('reaction-img');
+    let body = _('reaction');
+    if (amp === 0.0) {
+        toggleElementJohnCena(elem, false);
+        toggleBodyJohnCena(body, false);
+        hide(body);
+        return;
+    }
+    show(body);
     let { gif, isJohnCena } = getGif(amp);
     elem.src = gif;
     toggleElementJohnCena(elem, isJohnCena);
@@ -80,9 +87,6 @@ function updateReaction(amp) {
 }
 
 function getGif(amp) {
-    if (amp === 0.0) {
-        return { gif: '', isJohnCena: false };
-    }
     let minT = THRESHOLDS[0];
     let maxT = THRESHOLDS[THRESHOLDS.length - 1];
     if (amp < minT.amp) {
@@ -119,13 +123,13 @@ function toggleBodyJohnCena(elem, enable) {
 }
 
 function updateVolumeMeters() {
-    const vm1 = document.getElementById('max-meter-normalized-1-body');
-    const vm2 = document.getElementById('max-meter-normalized-2-body');
+    const vm1 = _('max-meter-normalized-1-body');
+    const vm2 = _('max-meter-normalized-2-body');
     if (_cfg.ShowVolumeMeter) {
-        vm1.classList.remove('invisible');
-        vm2.classList.remove('invisible');
+        show(vm1);
+        show(vm2);
     } else {
-        vm1.classList.add('invisible');
-        vm2.classList.add('invisible');
+        hide(vm1);
+        hide(vm2);
     }
 }

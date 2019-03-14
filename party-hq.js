@@ -39,8 +39,8 @@ function toggleLvl(lvl) {
 
 function setMinThreshold(value, notify = false) {
     _cfg.MinAmpThreshold = value;
-    const range = document.getElementById('min-threshold');
-    const text = document.getElementById('min-threshold-text');
+    const range = _('min-threshold');
+    const text = _('min-threshold-text');
     range.value = value;
     text.innerHTML = Number(value).toFixed(2);
     if (value > _cfg.MaxAmpThreshold) {
@@ -54,8 +54,8 @@ function setMinThreshold(value, notify = false) {
 
 function setMaxThreshold(value, notify = false) {
     _cfg.MaxAmpThreshold = value;
-    const range = document.getElementById('max-threshold');
-    const text = document.getElementById('max-threshold-text');
+    const range = _('max-threshold');
+    const text = _('max-threshold-text');
     range.value = value;
     text.innerHTML = Number(value).toFixed(2);
     if (value < _cfg.MinAmpThreshold) {
@@ -69,8 +69,8 @@ function setMaxThreshold(value, notify = false) {
 
 function setSmoothingWindow(value, notify = false) {
     _cfg.MovingAverageWindowSize = value;
-    const range = document.getElementById('smoothing-window');
-    const text = document.getElementById('smoothing-window-text');
+    const range = _('smoothing-window');
+    const text = _('smoothing-window-text');
     range.value = value;
     text.innerHTML = value;
     if (notify) {
@@ -80,7 +80,7 @@ function setSmoothingWindow(value, notify = false) {
 
 function setShowVolumeMeter(value, notify = false) {
     _cfg.ShowVolumeMeter = value;
-    const check = document.getElementById('show-volume-meter');
+    const check = _('show-volume-meter');
     check.checked = value;
     if (notify) {
         socket.emit('hq cfg update show volume meter', _cfg.ShowVolumeMeter);
@@ -89,9 +89,9 @@ function setShowVolumeMeter(value, notify = false) {
 
 function setEnableJohnCena(value, notify = false) {
     _cfg.EnableJohnCena = value;
-    const check = document.getElementById('enable-john-cena');
-    const checkBody = document.getElementById('enable-john-cena-body');
-    const text = document.getElementById('enable-john-cena-text');
+    const check = _('enable-john-cena');
+    const checkBody = _('enable-john-cena-body');
+    const text = _('enable-john-cena-text');
     check.checked = value;
     if (value) {
         text.classList.add('JOHN_CENA');
@@ -107,8 +107,8 @@ function setEnableJohnCena(value, notify = false) {
 
 function setGifTimeout(value, notify = false) {
     _cfg.GifTimeoutMs = Number(value) * 1000.0;
-    const range = document.getElementById('gif-timeout');
-    const text = document.getElementById('gif-timeout-text');
+    const range = _('gif-timeout');
+    const text = _('gif-timeout-text');
     range.value = value;
     text.innerHTML = Number(value).toFixed(2) + ' s';
     if (notify) {

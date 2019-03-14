@@ -66,10 +66,22 @@ function getNormalizedAmp(amp) {
 
 // Utils.
 
+function _(id) {
+    return document.getElementById(id);
+}
+
 function clamp(num, min, max) {
     return num <= min ? min : num >= max ? max : num;
 }
 
 function rand(items) {
     return items[Math.floor(Math.random() * items.length)];
+}
+
+function hide(elem) {
+    elem.classList.add('invisible');
+}
+
+function show(elem) {
+    elem.classList.remove('invisible');
 }
