@@ -1,5 +1,3 @@
-const REACTION_IMG_OVERRIDE_TIMEOUT_MS = 5000;
-
 const THRESHOLDS = [
     { amp: 0.25, gifs: [ '1-1.gif', '1-2.gif' ] },
     { amp: 0.50, gifs: [ '2-1.gif', '2-2.gif' ] },
@@ -27,7 +25,7 @@ _maxAmpChangedCallback = amp => {
     let normalizedAmp = getNormalizedAmp(amp);
     setMeter('max-meter-normalized-1', Math.round(normalizedAmp * 100), false);
     setMeter('max-meter-normalized-2', Math.round(normalizedAmp * 100), false);
-    updateReaction(normalizedAmp);
+    updateReaction();
 }
 
 const socket = io();
@@ -48,6 +46,7 @@ socket.on('hq cfg updated show volume meter', value => {
 });
 socket.on('hq cfg updated enable john cena', value => _cfg.EnableJohnCena = value);
 socket.on('hq cfg updated gif timeout', value => _cfg.GifTimeoutMs = value);
+socket.on('hq cfg updated gif override timeout', value => _cfg.GifOverrideTimeoutMs = value);
 
 socket.on('amplitude out', amp => setCurrentAmp(smoothenAmp(amp)));
 
@@ -62,15 +61,19 @@ socket.on('hq toggle lvl', lvl => {
     toggleElementJohnCena(overrideImg, isJohnCena);
     toggleBodyJohnCena(overrideImgBody, isJohnCena);
     clearTimeout(_reactionImgOverrideTimeout);
-    _reactionImgOverrideTimeout = setTimeout(() => {
-        show(imgBody)
-        hide(overrideImgBody);
-        toggleElementJohnCena(overrideImg, false);
-        toggleBodyJohnCena(overrideImgBody, false);
-    }, REACTION_IMG_OVERRIDE_TIMEOUT_MS);
+    if (_cfg.GifOverrideTimeoutMs > 0.0) {
+        _reactionImgOverrideTimeout = setTimeout(() => {
+            show(imgBody)
+            hide(overrideImgBody);
+            toggleElementJohnCena(overrideImg, false);
+            toggleBodyJohnCena(overrideImgBody, false);
+            updateReaction();
+        }, _cfg.GifOverrideTimeoutMs);
+    }
 });
 
-function updateReaction(amp) {
+function updateReaction() {
+    let amp = getNormalizedAmp(_maxAmp);
     let elem = _('reaction-img');
     let body = _('reaction');
     if (amp === 0.0) {

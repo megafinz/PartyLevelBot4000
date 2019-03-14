@@ -6,7 +6,8 @@ var _cfg = {
     MovingAverageWindowSize: 3,
     ShowVolumeMeter: true,
     EnableJohnCena: false,
-    GifTimeoutMs: 5000
+    GifTimeoutMs: 5000,
+    GifOverrideTimeoutMs: 5000
 }
 
 var _ampBuf = [];

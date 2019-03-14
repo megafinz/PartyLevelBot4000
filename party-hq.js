@@ -21,6 +21,7 @@ socket.on('hq cfg updated moving average window size', setSmoothingWindow);
 socket.on('hq cfg updated show volume meter', setShowVolumeMeter);
 socket.on('hq cfg updated enable john cena', setEnableJohnCena);
 socket.on('hq cfg updated gif timeout', setGifTimeout);
+socket.on('hq cfg updated gif override timeout', setGifOverrideTimeout);
 
 socket.on('amplitude out', amp => setCurrentAmp(smoothenAmp(amp)));
 
@@ -31,6 +32,7 @@ function updateCfg() {
     setShowVolumeMeter(_cfg.ShowVolumeMeter);
     setEnableJohnCena(_cfg.EnableJohnCena);
     setGifTimeout(_cfg.GifTimeoutMs / 1000.0);
+    setGifOverrideTimeout(_cfg.GifOverrideTimeoutMs / 1000.0);
 }
 
 function toggleLvl(lvl) {
@@ -116,9 +118,21 @@ function setGifTimeout(value, notify = false) {
     }
 }
 
+function setGifOverrideTimeout(value, notify = false) {
+    _cfg.GifOverrideTimeoutMs = Number(value) * 1000.0;
+    const range = _('gif-override-timeout');
+    const text = _('gif-override-timeout-text');
+    range.value = value;
+    text.innerHTML = Number(value) === 0.0 ? 'NEVER' : Number(value).toFixed(2) + ' s';
+    if (notify) {
+        socket.emit('hq cfg update gif override timeout', _cfg.GifOverrideTimeoutMs);
+    }
+}
+
 const onMinThresholdChanged = setMinThreshold;
 const onMaxThresholdChanged = setMaxThreshold;
 const onSmoothingWindowChanged = setSmoothingWindow;
 const onShowVolumeMeterChanged = setShowVolumeMeter;
 const onEnableJohnCenaChanged = setEnableJohnCena;
 const onGifTimeoutChanged = setGifTimeout;
+const onGifOverrideTimeoutChanged = setGifOverrideTimeout;

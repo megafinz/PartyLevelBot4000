@@ -9,7 +9,8 @@ var _cfg = {
     MovingAverageWindowSize: 3,
     ShowVolumeMeter: true,
     EnableJohnCena: false,
-    GifTimeoutMs: 5000
+    GifTimeoutMs: 5000,
+    GifOverrideTimeoutMs: 5000
 }
 
 app.use(express.static(__dirname));
@@ -65,6 +66,11 @@ io.on('connection', socket => {
         _cfg.GifTimeoutMs = value;
         socket.broadcast.emit('hq cfg updated gif timeout', value);
         console.log('Updated GIF TIMEOUT to ' + value + 'ms');
+    });
+    socket.on('hq cfg update gif override timeout', value => {
+        _cfg.GifOverrideTimeoutMs = value;
+        socket.broadcast.emit('hq cfg updated gif override timeout', value);
+        console.log('Updated GIF OVERRIDE TIMEOUT to ' + value + 'ms');
     });
     socket.emit('hq init cfg', _cfg);
 });
