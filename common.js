@@ -54,10 +54,10 @@ function refreshMaxAmp() {
     setMaxAmp(_currentAmp);
 }
 
-function setMeter(id, value) {
+function setMeter(id, value, updateText = true) {
     let elem = document.getElementById(id);
     elem.style.width = value + '%';
-    elem.innerHTML = value * 1 + '%';
+    elem.innerHTML = updateText ? value * 1 + '%' : '';
 }
 
 function getNormalizedAmp(amp) {
