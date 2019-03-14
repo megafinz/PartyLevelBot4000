@@ -1,4 +1,3 @@
-const MAX_AMP_REFRESH_INTERVAL_MS = 5000;
 const CURRENT_AMP_IDLE_RESET_INTERVAL_MS = 1000;
 
 var _cfg = {
@@ -6,7 +5,8 @@ var _cfg = {
     MaxAmpThreshold: 0.65,
     MovingAverageWindowSize: 3,
     ShowVolumeMeter: true,
-    EnableJohnCena: false
+    EnableJohnCena: false,
+    GifTimeoutMs: 5000
 }
 
 var _ampBuf = [];
@@ -44,7 +44,7 @@ function setCurrentAmp(amp) {
 function setMaxAmp(amp) {
     _maxAmp = amp;
     clearTimeout(_refreshMaxAmpTimeout);
-    _refreshMaxAmpTimeout = setTimeout(() => refreshMaxAmp(), MAX_AMP_REFRESH_INTERVAL_MS);
+    _refreshMaxAmpTimeout = setTimeout(() => refreshMaxAmp(), _cfg.GifTimeoutMs);
     if (_maxAmpChangedCallback) {
         _maxAmpChangedCallback(amp);
     }

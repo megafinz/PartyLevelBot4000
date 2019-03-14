@@ -8,7 +8,8 @@ var _cfg = {
     MaxAmpThreshold: 0.65,
     MovingAverageWindowSize: 3,
     ShowVolumeMeter: true,
-    EnableJohnCena: false
+    EnableJohnCena: false,
+    GifTimeoutMs: 5000
 }
 
 app.use(express.static(__dirname));
@@ -59,6 +60,11 @@ io.on('connection', socket => {
         _cfg.EnableJohnCena = value;
         socket.broadcast.emit('hq cfg updated enable john cena', value);
         console.log('Updated ENABLE JOHN CENA to ' + value);
+    });
+    socket.on('hq cfg update gif timeout', value => {
+        _cfg.GifTimeoutMs = value;
+        socket.broadcast.emit('hq cfg updated gif timeout', value);
+        console.log('Updated GIF TIMEOUT to ' + value + 'ms');
     });
     socket.emit('hq init cfg', _cfg);
 });

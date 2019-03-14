@@ -20,6 +20,7 @@ socket.on('hq cfg updated max amp threshold', setMaxThreshold);
 socket.on('hq cfg updated moving average window size', setSmoothingWindow);
 socket.on('hq cfg updated show volume meter', setShowVolumeMeter);
 socket.on('hq cfg updated enable john cena', setEnableJohnCena);
+socket.on('hq cfg updated gif timeout', setGifTimeout);
 
 socket.on('amplitude out', amp => setCurrentAmp(smoothenAmp(amp)));
 
@@ -29,6 +30,7 @@ function updateCfg() {
     setSmoothingWindow(_cfg.MovingAverageWindowSize);
     setShowVolumeMeter(_cfg.ShowVolumeMeter);
     setEnableJohnCena(_cfg.EnableJohnCena);
+    setGifTimeout(_cfg.GifTimeoutMs / 1000.0);
 }
 
 function toggleLvl(lvl) {
@@ -103,8 +105,20 @@ function setEnableJohnCena(value, notify = false) {
     }
 }
 
+function setGifTimeout(value, notify = false) {
+    _cfg.GifTimeoutMs = Number(value) * 1000.0;
+    const range = document.getElementById('gif-timeout');
+    const text = document.getElementById('gif-timeout-text');
+    range.value = value;
+    text.innerHTML = Number(value).toFixed(2) + ' s';
+    if (notify) {
+        socket.emit('hq cfg update gif timeout', _cfg.GifTimeoutMs);
+    }
+}
+
 const onMinThresholdChanged = setMinThreshold;
 const onMaxThresholdChanged = setMaxThreshold;
 const onSmoothingWindowChanged = setSmoothingWindow;
 const onShowVolumeMeterChanged = setShowVolumeMeter;
-const onJohnCenaChanged = setEnableJohnCena;
+const onEnableJohnCenaChanged = setEnableJohnCena;
+const onGifTimeoutChanged = setGifTimeout;
