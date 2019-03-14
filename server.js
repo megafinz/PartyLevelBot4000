@@ -35,7 +35,11 @@ io.on('connection', socket => {
     socket.on('amplitude in', amp => socket.broadcast.emit('amplitude out', amp));
     socket.on('hq toggle lvl', lvl => {
         socket.broadcast.emit('hq toggle lvl', lvl);
-        console.log('PARTY LEVEL OVERRIDE: ' + lvl);
+        console.log('PARTY LEVEL OVERRIDE: ' + (lvl + 1));
+    });
+    socket.on('hq turn off manual override', () => {
+        socket.broadcast.emit('hq turn off manual override');
+        console.log('TURN OFF PARTY LEVEL OVERRIDE');
     });
     socket.on('hq cfg update min amp threshold', value => {
         _cfg.MinAmpThreshold = value;

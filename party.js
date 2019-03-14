@@ -51,6 +51,18 @@ socket.on('hq cfg updated gif override timeout', value => _cfg.GifOverrideTimeou
 socket.on('amplitude out', amp => setCurrentAmp(smoothenAmp(amp)));
 
 socket.on('hq toggle lvl', lvl => {
+    turnOnOverride(lvl);
+    clearTimeout(_reactionImgOverrideTimeout);
+    if (_cfg.GifOverrideTimeoutMs > 0.0) {
+        _reactionImgOverrideTimeout = setTimeout(turnOffOverride, _cfg.GifOverrideTimeoutMs);
+    }
+});
+
+socket.on('hq turn off manual override', () => {
+    turnOffOverride();
+});
+
+function turnOnOverride(lvl) {
     const imgBody = _('reaction');
     const overrideImg = _('reaction-img-override');
     const overrideImgBody = _('reaction-override');
@@ -60,17 +72,18 @@ socket.on('hq toggle lvl', lvl => {
     overrideImg.src = gif;
     toggleElementJohnCena(overrideImg, isJohnCena);
     toggleBodyJohnCena(overrideImgBody, isJohnCena);
-    clearTimeout(_reactionImgOverrideTimeout);
-    if (_cfg.GifOverrideTimeoutMs > 0.0) {
-        _reactionImgOverrideTimeout = setTimeout(() => {
-            show(imgBody)
-            hide(overrideImgBody);
-            toggleElementJohnCena(overrideImg, false);
-            toggleBodyJohnCena(overrideImgBody, false);
-            updateReaction();
-        }, _cfg.GifOverrideTimeoutMs);
-    }
-});
+}
+
+function turnOffOverride() {
+    const imgBody = _('reaction');
+    const overrideImg = _('reaction-img-override');
+    const overrideImgBody = _('reaction-override');
+    show(imgBody)
+    hide(overrideImgBody);
+    toggleElementJohnCena(overrideImg, false);
+    toggleBodyJohnCena(overrideImgBody, false);
+    updateReaction();
+}
 
 function updateReaction() {
     let amp = getNormalizedAmp(_maxAmp);

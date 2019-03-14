@@ -39,6 +39,10 @@ function toggleLvl(lvl) {
     socket.emit('hq toggle lvl', lvl);
 }
 
+function turnOffManualOverride() {
+    socket.emit('hq turn off manual override');
+}
+
 function setMinThreshold(value, notify = false) {
     _cfg.MinAmpThreshold = value;
     const range = _('min-threshold');
