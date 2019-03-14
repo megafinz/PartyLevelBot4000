@@ -53,6 +53,8 @@ socket.on('hq toggle lvl', lvl => {
     _reactionImgOverrideTimeout = setTimeout(() => {
         imgBody.classList.remove('invisible');
         overrideImgBody.classList.add('invisible');
+        toggleElementJohnCena(overrideImg, false);
+        toggleBodyJohnCena(overrideImgBody, false);
     }, REACTION_IMG_OVERRIDE_TIMEOUT_MS);
 });
 
