@@ -34,11 +34,18 @@ const socket = io();
 
 setCurrentAmp(0.0);
 
-socket.on('hq init cfg', cfg => _cfg = cfg);
+socket.on('hq init cfg', cfg => {
+    _cfg = cfg;
+    updateVolumeMeters();
+});
 
 socket.on('hq cfg updated min amp threshold', value => _cfg.MinAmpThreshold = value);
 socket.on('hq cfg updated max amp threshold', value => _cfg.MaxAmpThreshold = value);
 socket.on('hq cfg updated moving average window size', value => _cfg.MovingAverageWindowSize = value);
+socket.on('hq cfg updated show volume meter', value => {
+    _cfg.ShowVolumeMeter = value;
+    updateVolumeMeters();
+});
 socket.on('hq cfg updated enable john cena', value => _cfg.EnableJohnCena = value);
 socket.on('hq cfg updated gif timeout', value => _cfg.GifTimeoutMs = value);
 
@@ -108,5 +115,17 @@ function toggleBodyJohnCena(elem, enable) {
         elem.classList.add('JOHN_CENA_BODY');
     } else {
         elem.classList.remove('JOHN_CENA_BODY');
+    }
+}
+
+function updateVolumeMeters() {
+    const vm1 = document.getElementById('max-meter-normalized-1-body');
+    const vm2 = document.getElementById('max-meter-normalized-2-body');
+    if (_cfg.ShowVolumeMeter) {
+        vm1.classList.remove('invisible');
+        vm2.classList.remove('invisible');
+    } else {
+        vm1.classList.add('invisible');
+        vm2.classList.add('invisible');
     }
 }
