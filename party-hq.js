@@ -50,7 +50,7 @@ function setMinThreshold(value, notify = false) {
     range.value = value;
     text.innerHTML = Number(value).toFixed(2);
     if (value > _cfg.MaxAmpThreshold) {
-        setMaxThreshold(value);
+        setMaxThreshold(value, notify);
     }
     refreshMaxAmp();
     if (notify) {
@@ -65,7 +65,7 @@ function setMaxThreshold(value, notify = false) {
     range.value = value;
     text.innerHTML = Number(value).toFixed(2);
     if (value < _cfg.MinAmpThreshold) {
-        setMinThreshold(value);
+        setMinThreshold(value, notify);
     }
     refreshMaxAmp();
     if (notify) {
